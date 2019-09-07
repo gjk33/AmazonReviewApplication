@@ -1,0 +1,90 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Amazon Review Classification
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Amazon Review Classifier</h2>
+            <p>Enter a a review and press the Classify button when you are ready</p>
+            <div class="row">
+
+               
+                <div class="col-sm-6">
+                        <p>The review system will provide predicted <b>rating</b>, <b>helpfulness value</b> and a classification to one of the following <b>product types </b></p>
+                    <ul>
+                        <li>Videogames</li>
+                        <li>Beauty</li>
+                        <li>Music</li>
+                        <li>Cell Phones and Accesories</li>
+                        <li>Clothing, Shoes and Jewellery</li>
+                        <li>Electronics</li>
+                        <li>Health and Personal Care</li>
+                        <li>Homewares</li>
+                        <li>Film and TV</li>
+                        <li>Stationary</li>
+                        <li>Patio, Lawn and Garden</li>
+                        <li>Pet Supplies</li>
+                        <li>Sports and Outdoor</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                        {{ wtf.quick_form(form)}}
+    
+                    </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <hr>
+        {% if not_enough %}
+        <p>There were not enough meaningful words to classify your review</p>
+        {% endif%}
+        {% if type_keywords %}
+        <div class="col-sm-6">
+            <p>Predicted Type :</p>
+            {% if typeClassification %}
+            <b>{{typeClassification}}</b>
+            {% endif %}
+            {% if topThree %}
+            <b>{{ topThree }}</b>
+            {% endif %}
+            <br>
+            <br>
+            <p>Keywords that led to this classification: </p>
+            <b>{{type_keywords}}</b>
+        </div>
+        <div class="col-sm-3">
+            <p>Predicted Rating :</p>
+            <i>Low (1 or 2 stars) , Medium (3 stars) , High (4 or 5 stars)</i>
+            <br>
+            <b>{{overallClassification}}</b>
+            
+        </div>
+        <div class="col-sm-3">
+                <p>Predicted Helpfulness :</p>
+                <i>Would more than 50% of people seeing this review find it helpful?</i>
+                <br>
+                <b>{{helpfulClassification}}</b>     
+            </div>
+        {% endif %}
+
+
+
+    </div>
+</div>
+
+
+{% endblock%}
